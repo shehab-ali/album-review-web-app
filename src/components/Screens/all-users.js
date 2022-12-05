@@ -23,12 +23,12 @@ const EditUsersScreen = () => {
 
         const response2 = await axios.get(`http://localhost:4000/api/users/${userID}`)
         let user = response2.data;
-        const response3 = await axios.get("http://localhost:4000/api/movies")
+        const response3 = await axios.get("http://localhost:4000/api/albums")
 
-        let moviesToUnLike = response3.data.filter(m => user.likedMovies.includes(m.imdbID));
-        let moviesToUnDislike = response3.data.filter(m => user.dislikedMovies.includes(m.imdbID));
-        moviesToUnLike.forEach(m => unLike(m))
-        moviesToUnDislike.forEach(m => unDislike(m));
+        let albumsToUnLike = response3.data.filter(m => user.likedAlbums.includes(m.imdbID));
+        let albumsToUnDislike = response3.data.filter(m => user.dislikedAlbums.includes(m.imdbID));
+        albumsToUnLike.forEach(m => unLike(m))
+        albumsToUnDislike.forEach(m => unDislike(m));
 
         const response = await axios.delete(`http://localhost:4000/api/users/${userID}`);
         await findAllUsers();
@@ -36,10 +36,10 @@ const EditUsersScreen = () => {
 
     const deleteReview = async (r) => {
         await axios.delete(`http://localhost:4000/api/reviews/${r._id}`)
-        const response2 = await axios.get("http://localhost:4000/api/movies")
-        let movies = response2.data
-        let movie = movies.find(m => m.imdbID == r.movieID)
-        await axios.post("http://localhost:4000/api/deleteReview", movie);
+        const response2 = await axios.get("http://localhost:4000/api/albums")
+        let albums = response2.data
+        let album = albums.find(m => m.imdbID == r.albumID)
+        await axios.post("http://localhost:4000/api/deleteReview", album);
     }
 
     const unLike = async (m) => {

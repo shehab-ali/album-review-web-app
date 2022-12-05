@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const ReviewItem = ({
                         review = {
-                            movieID: "",
+                            albumID: "",
                             postedBy: {userID: "111"},
                             review: "",
                         }

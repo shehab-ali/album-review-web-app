@@ -1,8 +1,8 @@
-import RenderAllReviewedMovies from "./renderReviewedMovies";
+import RenderAllReviewedAlbums from "./renderReviewedAlbums";
 const HomeScreen = () => {
     return(
         <div>
-            <RenderAllReviewedMovies/>
+            <RenderAllReviewedAlbums/>
         </div>
     )
 }

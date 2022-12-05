@@ -3,24 +3,24 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import SecureContent from "../Secure/SecureContent";
 import {useProfile} from "../../context/profile-context";
-import PostReview from "../MovieReviewBlog/PostReview";
-import RenderReviewsForMovie from "../MovieReviewBlog/RenderReviews/renderReviewsForMovie";
-import {likeMovie, dislikeMovie} from "../../actions/movies-actions";
+import PostReview from "../AlbumReviewSite/PostReview";
+import RenderReviewsForAlbum from "../AlbumReviewSite/RenderReviews/renderReviewsForAlbum";
+import {likeAlbum, dislikeAlbum} from "../../actions/albums-actions";
 import {useDispatch, useSelector} from "react-redux";
-import {findAllMovies} from "../../actions/movies-actions";
+import {findAllAlbums} from "../../actions/albums-actions";
 import { ACCESSTOKEN } from './omdb-search';
 const OmdbDetails = () => {
 
 
     const [status, setStatus] = useState("NEITHER")
-    const [movieDetails, setMovieDetails] = useState({})
+    const [albumDetails, setAlbumDetails] = useState({})
 
     const {imdbID} = useParams()
     let {profile} = useProfile()
     const {signin} = useProfile()
     const [info, setInfo] =
         useState(profile);
-    const searchMovieByImdbID = async () => {
+    const searchAlbumByImdbID = async () => {
 
         const albumParams = {
             method: 'GET',
@@ -36,17 +36,17 @@ const OmdbDetails = () => {
         response.Poster = response.images[0].url
         response.imdbID = response.id
         
-        setMovieDetails(response)
+        setAlbumDetails(response)
     }
     const dispatch = useDispatch();
     useEffect(() => {
-        searchMovieByImdbID()
-        findAllMovies()
+        searchAlbumByImdbID()
+        findAllAlbums()
         setInfo(profile)
     }, [])
 
-    const movies = useSelector((state) => state.movies);
-    let movie = movies.find(mv => mv.imdbID == imdbID);
+    const albums = useSelector((state) => state.albums);
+    let album = albums.find(mv => mv.imdbID == imdbID);
 
     const handleLike = async () => {
         signin(info.email,info.password)
@@ -54,32 +54,32 @@ const OmdbDetails = () => {
         if (status == "LIKED") {
             return;
         } else if (status == "DISLIKED") {
-            let x = info.dislikedMovies.indexOf(imdbID)
-            info.dislikedMovies.splice(x,1);
-            info.likedMovies.push(imdbID)
+            let x = info.dislikedAlbums.indexOf(imdbID)
+            info.dislikedAlbums.splice(x,1);
+            info.likedAlbums.push(imdbID)
             const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
 
-            const newMovie = {
-                title: movieDetails.Title,
-                poster: movieDetails.Poster,
-                imdbID: movieDetails.imdbID
+            const newAlbum = {
+                title: albumDetails.Title,
+                poster: albumDetails.Poster,
+                imdbID: albumDetails.imdbID
             }
             {
-                movie ? await likeMovie(dispatch, movie) : await likeMovie(dispatch, newMovie)
+                album ? await likeAlbum(dispatch, album) : await likeAlbum(dispatch, newAlbum)
             }
 
         } else {
-            info.likedMovies.push(imdbID)
+            info.likedAlbums.push(imdbID)
             const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
         }
 
-        const newMovie = {
-            title: movieDetails.Title,
-            poster: movieDetails.Poster,
-            imdbID: movieDetails.imdbID
+        const newAlbum = {
+            title: albumDetails.Title,
+            poster: albumDetails.Poster,
+            imdbID: albumDetails.imdbID
         }
         {
-            movie ? await likeMovie(dispatch, movie) : await likeMovie(dispatch, newMovie)
+            album ? await likeAlbum(dispatch, album) : await likeAlbum(dispatch, newAlbum)
         }
         signin(info.email,info.password)
         setInfo(profile);
@@ -92,45 +92,45 @@ const OmdbDetails = () => {
         if (status == "DISLIKED") {
             return;
         } else if (status == "LIKED") {
-            let x = info.likedMovies.indexOf(imdbID)
-            info.likedMovies.splice(x,1);
-            info.dislikedMovies.push(imdbID)
+            let x = info.likedAlbums.indexOf(imdbID)
+            info.likedAlbums.splice(x,1);
+            info.dislikedAlbums.push(imdbID)
             const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
 
-            const newMovie = {
-                title: movieDetails.Title,
-                poster: movieDetails.Poster,
-                imdbID: movieDetails.imdbID
+            const newAlbum = {
+                title: albumDetails.Title,
+                poster: albumDetails.Poster,
+                imdbID: albumDetails.imdbID
             }
             {
-                movie ? await dislikeMovie(dispatch, movie) : await dislikeMovie(dispatch, newMovie)
+                album ? await dislikeAlbum(dispatch, album) : await dislikeAlbum(dispatch, newAlbum)
             }
 
         } else {
-            info.dislikedMovies.push(imdbID)
+            info.dislikedAlbums.push(imdbID)
             const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
         }
-        const newMovie = {
-            title: movieDetails.Title,
-            poster: movieDetails.Poster,
-            imdbID: movieDetails.imdbID
+        const newAlbum = {
+            title: albumDetails.Title,
+            poster: albumDetails.Poster,
+            imdbID: albumDetails.imdbID
         }
         {
-            movie ? await dislikeMovie(dispatch, movie) : await dislikeMovie(dispatch, newMovie)
+            album ? await dislikeAlbum(dispatch, album) : await dislikeAlbum(dispatch, newAlbum)
         }
         setStatus("DISLIKED");
         signin(info.email,info.password)
         setInfo(profile);
     }
 
-    let id = movieDetails.imdbID
+    let id = albumDetails.imdbID
     return (
         <div>
-            <h1>{movieDetails.Title}</h1>
-            <div className="wd-movie-details-container list-group-item">
-                <img className="wd-image-container " src={movieDetails.Poster}/>
-                <div className="wd-movie-plot ps-3">
-                    {movieDetails.Plot}
+            <h1>{albumDetails.Title}</h1>
+            <div className="wd-album-details-container list-group-item">
+                <img className="wd-image-container " src={albumDetails.Poster}/>
+                <div className="wd-album-plot ps-3">
+                    {albumDetails.Plot}
                 </div>
                 <SecureContent>
                     <button className="rounded-pill wd-likes-dislikes-button m-2"
@@ -144,11 +144,11 @@ const OmdbDetails = () => {
 
 
             <SecureContent>
-                {profile && movieDetails.imdbID && profile.role == 'REVIEWER' ? <PostReview
-                    idDetails={{"movieID": movieDetails.imdbID, "userID": profile._id}}/> : <></>}
+                {profile && albumDetails.imdbID && profile.role == 'REVIEWER' ? <PostReview
+                    idDetails={{"albumID": albumDetails.imdbID, "userID": profile._id}}/> : <></>}
             </SecureContent>
 
-            {movieDetails.imdbID && <RenderReviewsForMovie movieID={id}/>}
+            {albumDetails.imdbID && <RenderReviewsForAlbum albumID={id}/>}
         </div>
     );
 };

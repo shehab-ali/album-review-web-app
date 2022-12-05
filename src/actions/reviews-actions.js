@@ -2,7 +2,7 @@ import * as service from '../services/reviews-service';
 
 export const CREATE_REVIEW = 'CREATE_REVIEW';
 export const FIND_ALL_REVIEWS = 'FIND_ALL_REVIEWS';
-export const FIND_ALL_REVIEWS_FOR_MOVIE = 'FIND_ALL_REVIEWS_FOR_MOVIE';
+export const FIND_ALL_REVIEWS_FOR_ALBUM = 'FIND_ALL_REVIEWS_FOR_ALBUM';
 export const UPDATE_REVIEW = 'UPDATE_REVIEW';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
 
@@ -22,11 +22,11 @@ export const findAllReviews = async (dispatch) => {
              });
 }
 
-export const findAllReviewsForMovie = async (dispatch, movieID) => {
+export const findAllReviewsForAlbum = async (dispatch, albumID) => {
     let reviews = await service.findAllReviews();
-    reviews = reviews.filter(r => r.movieID == movieID);
+    reviews = reviews.filter(r => r.albumID == albumID);
     dispatch({
-                 type: FIND_ALL_REVIEWS_FOR_MOVIE,
+                 type: FIND_ALL_REVIEWS_FOR_ALBUM,
                  reviews
              });
 }

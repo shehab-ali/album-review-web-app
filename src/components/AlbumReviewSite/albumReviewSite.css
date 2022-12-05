@@ -25,11 +25,11 @@
     color: white;
 }
 
-.wd-movie-details-container {
+.wd-album-details-container {
     width: 100%;
 }
 
-.wd-movie-plot {
+.wd-album-plot {
     width: 55%;
     height: 100%;
     float: right;

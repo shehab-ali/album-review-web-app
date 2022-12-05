@@ -8,7 +8,7 @@ import { ACCESSTOKEN } from "../../Screens/omdb-search";
 
 const PostReview = ({
                         idDetails = {
-                            movieID: "000",
+                            albumID: "000",
                             userID: "000"
                         }
 
@@ -16,7 +16,7 @@ const PostReview = ({
     const dispatch = useDispatch();
     const [newReview, setNewReview] =
         useState({
-                     movieID: idDetails.movieID,
+                     albumID: idDetails.albumID,
                      postedBy: {
                          userID: idDetails.userID,
                      },
@@ -24,11 +24,11 @@ const PostReview = ({
                      likes: 0,
                  });
 
-    const [movieDetails, setMovieDetails] = useState({})
+    const [albumDetails, setAlbumDetails] = useState({})
     //const url = 'http://www.omdbapi.com/?apikey=852159f0'
     const {imdbID} = useParams()
 
-    const searchMovieByImdbID = async () => {
+    const searchAlbumByImdbID = async () => {
         const albumParams = {
             method: 'GET',
             headers: {
@@ -38,7 +38,7 @@ const PostReview = ({
         }
         var response = await fetch('https://api.spotify.com/v1/albums/' + imdbID, albumParams)
         .then(response => response.json())
-        console.log('here brotha', response)
+
         response.Title = response.name
         response.Poster = response.images[0].url
         response.imdbID = response.id
@@ -49,21 +49,21 @@ const PostReview = ({
         // console.log(response.data)
 
         
-        setMovieDetails(response)
+        setAlbumDetails(response)
     }
 
     const handleReview = async () => {
-        const movie = {
-            title: movieDetails.Title,
-            poster: movieDetails.Poster,
-            imdbID: movieDetails.imdbID
+        const album = {
+            title: albumDetails.Title,
+            poster: albumDetails.Poster,
+            imdbID: albumDetails.imdbID
         }
-        const response = await axios.post("http://localhost:4000/api/review", movie)
+        const response = await axios.post("http://localhost:4000/api/review", album)
         await createReview(dispatch,newReview)
     }
 
     useEffect(() => {
-        searchMovieByImdbID()
+        searchAlbumByImdbID()
     }, [])
 
     return (
@@ -73,7 +73,7 @@ const PostReview = ({
                           onChange={(e) =>
                               setNewReview({
                                                ...newReview,
-                                               movieID: idDetails.movieID,
+                                               albumID: idDetails.albumID,
                                                review: e.target.value
                                            })}>
                 </textarea>

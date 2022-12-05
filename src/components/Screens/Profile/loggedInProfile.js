@@ -4,7 +4,7 @@ import {useProfile} from "../../../context/profile-context";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {signin} from "../../../services/auth-service";
-import ReviewItemLinkedToMovie from "../../MovieReviewBlog/RenderReviews/renderReviewItemLinkedToMovie";
+import ReviewItemLinkedToAlbum from "../../AlbumReviewSite/RenderReviews/renderReviewItemLinkedToAlbum";
 
 const LoggedInProfileScreen = () => {
     const {profile} = useProfile()
@@ -17,24 +17,24 @@ const LoggedInProfileScreen = () => {
     const [info, setInfo] =
         useState(profile);
 
-    const [positiveMovies, setPositiveMovies] = useState([])
-    const [negativeMovies, setNegativeMovies] = useState([])
-    const [reviewedMovies, setReviewedMovies] = useState([])
+    const [positiveAlbums, setPositiveAlbums] = useState([])
+    const [negativeAlbums, setNegativeAlbums] = useState([])
+    const [reviewedAlbums, setReviewedAlbums] = useState([])
 
-    const getOurMovies = async () => {
-        const response = await axios.get('http://localhost:4000/api/movies')
+    const getOurAlbums = async () => {
+        const response = await axios.get('http://localhost:4000/api/albums')
         const response2 = await axios.get('http://localhost:4000/api/reviews')
         console.log(response.data)
-        setReviewedMovies(response2.data.filter(r => r.postedBy.userID == profile._id));
-        setPositiveMovies(
-            response.data.filter(m => m.likes > 0 && profile.likedMovies.includes(m.imdbID)))
-        setNegativeMovies(
-            response.data.filter(m => m.likes < 0 && profile.dislikedMovies.includes(m.imdbID)))
+        setReviewedAlbums(response2.data.filter(r => r.postedBy.userID == profile._id));
+        setPositiveAlbums(
+            response.data.filter(m => m.likes > 0 && profile.likedAlbums.includes(m.imdbID)))
+        setNegativeAlbums(
+            response.data.filter(m => m.likes < 0 && profile.dislikedAlbums.includes(m.imdbID)))
     }
 
     useEffect(() => {
         setInfo(profile)
-        getOurMovies()
+        getOurAlbums()
     }, [])
 
     const updateInfo = async () => {
@@ -85,48 +85,48 @@ const LoggedInProfileScreen = () => {
 
             <ul className="list-group ">
 
-                {reviewedMovies.length > 0 ?
+                {reviewedAlbums.length > 0 ?
                  <li className="list-group-item">
-                     All Reviews for Movie
+                     All Reviews for Album
                  </li> : <div></div>
                 }
 
                 {
-                    reviewedMovies.map(review => {
-                        return (<ReviewItemLinkedToMovie review={review}/>);
+                    reviewedAlbums.map(review => {
+                        return (<ReviewItemLinkedToAlbum review={review}/>);
                     })
                 }
 
 
-                {positiveMovies.length > 0 ?
+                {positiveAlbums.length > 0 ?
                  <li className="list-group-item">
-                     My Liked Movies
+                     My Liked Albums
                  </li> : <div></div>
                 }
-                {positiveMovies &&
-                 positiveMovies.map(movie =>
+                {positiveAlbums &&
+                 positiveAlbums.map(album =>
                                         <li className="list-group-item">
-                                            <Link to={`/details/${movie.imdbID}`}>
-                                                <img src={movie.poster} className="me-2"
+                                            <Link to={`/details/${album.imdbID}`}>
+                                                <img src={album.poster} className="me-2"
                                                      height={60}/>
-                                                {movie.title}
+                                                {album.title}
                                             </Link>
                                         </li>
                  )
                 }
-                {negativeMovies.length > 0 ?
+                {negativeAlbums.length > 0 ?
                  <li className="list-group-item">
-                     My Disliked Movies
+                     My Disliked Albums
                  </li> : <div></div>
                 }
 
-                {negativeMovies &&
-                 negativeMovies.map(movie =>
+                {negativeAlbums &&
+                 negativeAlbums.map(album =>
                                         <li className="list-group-item">
-                                            <Link to={`/details/${movie.imdbID}`}>
-                                                <img src={movie.poster} className="me-2"
+                                            <Link to={`/details/${album.imdbID}`}>
+                                                <img src={album.poster} className="me-2"
                                                      height={60}/>
-                                                {movie.title}
+                                                {album.title}
                                             </Link>
                                         </li>
                  )

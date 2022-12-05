@@ -2,14 +2,14 @@ import {Outlet, useLocation} from "react-router-dom";
 import NavigationSidebar from "./NavigationSidebar";
 import usersReducer from "../../reducers/users-reducer";
 import reviewsReducer from "../../reducers/reviews-reducer";
-import moviesReducer from "../../reducers/movies-reducer";
+import albumsReducer from "../../reducers/albums-reducer";
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import WhoToFollowList
     from "./ReviewersList";
 
 const reducer = combineReducers({
-                                    users: usersReducer, reviews: reviewsReducer, movies: moviesReducer
+                                    users: usersReducer, reviews: reviewsReducer, albums: albumsReducer
                                 });
 const store = createStore(reducer);
 

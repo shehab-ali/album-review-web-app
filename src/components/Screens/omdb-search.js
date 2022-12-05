@@ -15,7 +15,7 @@ const OmdbSearch = () => {
     }
 
     const titleSearchRef = useRef()
-    const {movieSearch} = useParams()
+    const {albumSearch} = useParams()
     const navigate = useNavigate()
 
     var authParams = {
@@ -32,7 +32,7 @@ const OmdbSearch = () => {
 
     const searchByTitle = async () => {
 
-        const searchString = titleSearchRef.current.value || movieSearch || 'clairo'
+        const searchString = titleSearchRef.current.value || albumSearch || 'clairo'
 
         const artistParams = {
             method: 'GET',
