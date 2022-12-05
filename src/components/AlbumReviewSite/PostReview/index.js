@@ -6,6 +6,8 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import { ACCESSTOKEN } from "../../Screens/omdb-search";
 
+const API_URL = 'http://localhost:4000/api'
+
 const PostReview = ({
                         idDetails = {
                             albumID: "000",
@@ -25,7 +27,7 @@ const PostReview = ({
                  });
 
     const [albumDetails, setAlbumDetails] = useState({})
-    //const url = 'http://www.omdbapi.com/?apikey=852159f0'
+
     const {imdbID} = useParams()
 
     const searchAlbumByImdbID = async () => {
@@ -42,12 +44,6 @@ const PostReview = ({
         response.Title = response.name
         response.Poster = response.images[0].url
         response.imdbID = response.id
-
-
-
-        // const response = await axios.get(`${url}&i=${imdbID}`)
-        // console.log(response.data)
-
         
         setAlbumDetails(response)
     }
@@ -58,7 +54,7 @@ const PostReview = ({
             poster: albumDetails.Poster,
             imdbID: albumDetails.imdbID
         }
-        const response = await axios.post("http://localhost:4000/api/review", album)
+        const response = await axios.post(`${API_URL}/review`, album)
         await createReview(dispatch,newReview)
     }
 

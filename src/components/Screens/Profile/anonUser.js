@@ -5,6 +5,8 @@ import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import ReviewItemLinkedToAlbum from "../../AlbumReviewSite/RenderReviews/renderReviewItemLinkedToAlbum";
 
+const API_URL = 'http://localhost:4000/api'
+
 const AnonUser = () => {
     const {pID} = useParams()
     const users = useSelector((state) => state.users);
@@ -16,9 +18,9 @@ const AnonUser = () => {
     const [negativeAlbums, setNegativeAlbums] = useState([])
     const [reviewedAlbums, setReviewedAlbums] = useState([])
     const getOurAlbums = async () => {
-        const response = await axios.get('http://localhost:4000/api/albums')
-        const response2 = await axios.get(`http://localhost:4000/api/users/${pID}`)
-        const response3 = await axios.get('http://localhost:4000/api/reviews')
+        const response = await axios.get(`${API_URL}/albums`)
+        const response2 = await axios.get(`${API_URL}/users/${pID}`)
+        const response3 = await axios.get(`${API_URL}/reviews`)
         setReviewedAlbums(response3.data.filter(r => r.postedBy.userID == pID));
         const thisUser = response2.data
         setPositiveAlbums(

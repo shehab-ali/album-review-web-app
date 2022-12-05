@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+
+const API_URL = 'http://localhost:4000/api'
 const RenderAllReviewedAlbums = () => {
     const [reviewedAlbums, setReviewedAlbums] = useState([])
     const [positiveAlbums, setPositiveAlbums] = useState([])
     const [negativeAlbums, setNegativeAlbums] = useState([])
     const getOurAlbums = async () => {
-        const response = await axios.get('http://localhost:4000/api/albums')
+        const response = await axios.get(`${API_URL}/albums`)
         setReviewedAlbums(response.data.filter(m => m.reviews > 0));
         setPositiveAlbums(response.data.filter(m => m.likes > 0))
         setNegativeAlbums(response.data.filter(m => m.likes < 0))

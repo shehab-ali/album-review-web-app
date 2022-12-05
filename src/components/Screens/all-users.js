@@ -3,11 +3,13 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import {useProfile} from "../../context/profile-context";
 
+const API_URL = 'http://localhost:4000/api'
+
 const EditUsersScreen = () => {
     const {profile} = useProfile()
     const [users, setUsers] = useState([])
     const findAllUsers = async () => {
-        const response = await axios.get('http://localhost:4000/api/users')
+        const response = await axios.get(`${API_URL}/users`)
         let usersMinusCurrent = response.data.filter(user => user.role && user.role != 'ADMIN');
         setUsers(usersMinusCurrent);
     }
@@ -16,38 +18,38 @@ const EditUsersScreen = () => {
     }, [])
 
     const handleDelete = async (userID) => {
-        const response1 = await axios.get("http://localhost:4000/api/reviews")
+        const response1 = await axios.get(`${API_URL}/reviews`)
         let reviews = response1.data
         let reviewsToDelete = reviews.filter(r => r.postedBy.userID == userID);
         reviewsToDelete.forEach(r => deleteReview(r))
 
-        const response2 = await axios.get(`http://localhost:4000/api/users/${userID}`)
+        const response2 = await axios.get(`${API_URL}/users/${userID}`)
         let user = response2.data;
-        const response3 = await axios.get("http://localhost:4000/api/albums")
+        const response3 = await axios.get(`${API_URL}/albums`)
 
         let albumsToUnLike = response3.data.filter(m => user.likedAlbums.includes(m.imdbID));
         let albumsToUnDislike = response3.data.filter(m => user.dislikedAlbums.includes(m.imdbID));
         albumsToUnLike.forEach(m => unLike(m))
         albumsToUnDislike.forEach(m => unDislike(m));
 
-        const response = await axios.delete(`http://localhost:4000/api/users/${userID}`);
+        const response = await axios.delete(`${API_URL}/users/${userID}`);
         await findAllUsers();
     }
 
     const deleteReview = async (r) => {
-        await axios.delete(`http://localhost:4000/api/reviews/${r._id}`)
-        const response2 = await axios.get("http://localhost:4000/api/albums")
+        await axios.delete(`${API_URL}/reviews/${r._id}`)
+        const response2 = await axios.get(`${API_URL}/albums`)
         let albums = response2.data
         let album = albums.find(m => m.imdbID == r.albumID)
-        await axios.post("http://localhost:4000/api/deleteReview", album);
+        await axios.post(`${API_URL}/deleteReview`, album);
     }
 
     const unLike = async (m) => {
-        await axios.post("http://localhost:4000/api/dislikes", m)
+        await axios.post(`${API_URL}/dislikes`, m)
     }
 
     const unDislike = async (m) => {
-        await axios.post("http://localhost:4000/api/likes", m)
+        await axios.post(`${API_URL}/likes`, m)
     }
 
     return (

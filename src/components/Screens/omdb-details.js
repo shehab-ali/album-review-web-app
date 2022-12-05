@@ -9,6 +9,10 @@ import {likeAlbum, dislikeAlbum} from "../../actions/albums-actions";
 import {useDispatch, useSelector} from "react-redux";
 import {findAllAlbums} from "../../actions/albums-actions";
 import { ACCESSTOKEN } from './omdb-search';
+
+const API_URL = 'http://localhost:4000/api'
+
+
 const OmdbDetails = () => {
 
 
@@ -57,7 +61,7 @@ const OmdbDetails = () => {
             let x = info.dislikedAlbums.indexOf(imdbID)
             info.dislikedAlbums.splice(x,1);
             info.likedAlbums.push(imdbID)
-            const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
+            const response = await axios.put(`${API_URL}/users/${profile._id}`, info)
 
             const newAlbum = {
                 title: albumDetails.Title,
@@ -70,7 +74,7 @@ const OmdbDetails = () => {
 
         } else {
             info.likedAlbums.push(imdbID)
-            const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
+            const response = await axios.put(`${API_URL}/users/${profile._id}`, info)
         }
 
         const newAlbum = {
@@ -95,7 +99,7 @@ const OmdbDetails = () => {
             let x = info.likedAlbums.indexOf(imdbID)
             info.likedAlbums.splice(x,1);
             info.dislikedAlbums.push(imdbID)
-            const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
+            const response = await axios.put(`${API_URL}/users/${profile._id}`, info)
 
             const newAlbum = {
                 title: albumDetails.Title,
@@ -108,7 +112,7 @@ const OmdbDetails = () => {
 
         } else {
             info.dislikedAlbums.push(imdbID)
-            const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
+            const response = await axios.put(`${API_URL}/users/${profile._id}`, info)
         }
         const newAlbum = {
             title: albumDetails.Title,

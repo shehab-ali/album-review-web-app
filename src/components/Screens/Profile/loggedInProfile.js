@@ -6,6 +6,8 @@ import axios from "axios";
 import {signin} from "../../../services/auth-service";
 import ReviewItemLinkedToAlbum from "../../AlbumReviewSite/RenderReviews/renderReviewItemLinkedToAlbum";
 
+const API_URL = 'http://localhost:4000/api'
+
 const LoggedInProfileScreen = () => {
     const {profile} = useProfile()
     const navigate = useNavigate()
@@ -22,8 +24,8 @@ const LoggedInProfileScreen = () => {
     const [reviewedAlbums, setReviewedAlbums] = useState([])
 
     const getOurAlbums = async () => {
-        const response = await axios.get('http://localhost:4000/api/albums')
-        const response2 = await axios.get('http://localhost:4000/api/reviews')
+        const response = await axios.get(`${API_URL}/albums`)
+        const response2 = await axios.get(`${API_URL}/reviews`)
         console.log(response.data)
         setReviewedAlbums(response2.data.filter(r => r.postedBy.userID == profile._id));
         setPositiveAlbums(
@@ -38,7 +40,7 @@ const LoggedInProfileScreen = () => {
     }, [])
 
     const updateInfo = async () => {
-        const response = await axios.put(`http://localhost:4000/api/users/${profile._id}`, info)
+        const response = await axios.put(`${API_URL}/users/${profile._id}`, info)
         await signin(
             info.email, info.password
         )
