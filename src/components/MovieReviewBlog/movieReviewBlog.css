@@ -1,0 +1,71 @@
+.wd-list-group-override {
+    border-radius: 20px;
+}
+
+
+.wd-icon {
+    float: left;
+}
+
+
+.wd-post-container {
+    height: auto;
+}
+
+.wd-post-with-image {
+    width: 85%;
+    float: left;
+}
+
+
+.wd-content {
+    width: 100%;
+    height: auto;
+    font-size: 16px;
+    color: white;
+}
+
+.wd-movie-details-container {
+    width: 100%;
+}
+
+.wd-movie-plot {
+    width: 55%;
+    height: 100%;
+    float: right;
+}
+
+.wd-image-container {
+    width: 40%;
+}
+
+.wd-input-field {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border: #6e767d 2px solid;
+    border-radius: 15px;
+}
+
+.wd-likes-dislikes-button {
+    width: 18%;
+    color: white;
+    background-color: deepskyblue;
+    border: none;
+    vertical-align: center;
+}
+
+.wd-review-button {
+    width: 80px;
+    color: white;
+    background-color: deepskyblue;
+    border: none;
+    vertical-align: center;
+}
+
+.wd-review-textarea {
+    width: 80%;
+    min-height: 80px;
+    border: #6e767d 1px solid;
+    color: #6e767d;
+    background-color: transparent;
+}
