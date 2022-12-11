@@ -5,7 +5,7 @@ import {Link, useParams} from "react-router-dom";
 import axios from "axios";
 import ReviewItemLinkedToAlbum from "../../AlbumReviewSite/RenderReviews/renderReviewItemLinkedToAlbum";
 
-const API_URL = 'http://localhost:4000/api'
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
 
 const AnonUser = () => {
     const {pID} = useParams()

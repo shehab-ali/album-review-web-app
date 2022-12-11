@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-const API_URL = 'http://localhost:4000/api'
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
 const RenderAllReviewedAlbums = () => {
     const [reviewedAlbums, setReviewedAlbums] = useState([])
     const [positiveAlbums, setPositiveAlbums] = useState([])

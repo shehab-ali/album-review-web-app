@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = 'http://localhost:4000/api'; //process.env.REACT_APP_API_BASE || 
+const API_BASE = 'https://album-review-server-app.herokuapp.com/api';
 const REVIEWS_API = `${API_BASE}/reviews`;
 
 export const createReview = async (review) => {

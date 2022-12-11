@@ -6,7 +6,7 @@ import axios from "axios";
 import {useParams} from "react-router-dom";
 import { ACCESSTOKEN } from "../../Screens/omdb-search";
 
-const API_URL = 'http://localhost:4000/api'
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
 
 const PostReview = ({
                         idDetails = {

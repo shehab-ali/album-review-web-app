@@ -6,7 +6,7 @@ import axios from "axios";
 import {signin} from "../../../services/auth-service";
 import ReviewItemLinkedToAlbum from "../../AlbumReviewSite/RenderReviews/renderReviewItemLinkedToAlbum";
 
-const API_URL = 'http://localhost:4000/api'
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
 
 const LoggedInProfileScreen = () => {
     const {profile} = useProfile()

@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_BASE = 'http://localhost:4000/api';
+const API_BASE = 'https://album-review-server-app.herokuapp.com/api';
 
 export const likeAlbum = async (album) => {
     const response = await axios.post(`${API_BASE}/likes`, album)

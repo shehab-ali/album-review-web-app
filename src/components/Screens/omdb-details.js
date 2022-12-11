@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {findAllAlbums} from "../../actions/albums-actions";
 import { ACCESSTOKEN } from './omdb-search';
 
-const API_URL = 'http://localhost:4000/api'
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
 
 
 const OmdbDetails = () => {

@@ -1,5 +1,7 @@
 import axios from 'axios';
-const API_BASE = 'http://localhost:4000/api';// process.env.REACT_APP_API_BASE ||
+const API_BASE = 'https://album-review-server-app.herokuapp.com/api';
+// process.env.REACT_APP_API_BASE ||
+// https://album-review-server-app.herokuapp.com/api
 const USERS_API = `${API_BASE}/users`;
 
 export const createUser = async (user) => {

@@ -3,7 +3,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import {useProfile} from "../../context/profile-context";
 
-const API_URL = 'http://localhost:4000/api'
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
 
 const EditUsersScreen = () => {
     const {profile} = useProfile()

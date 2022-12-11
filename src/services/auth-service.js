@@ -1,5 +1,7 @@
 import axios from "axios";
-const API_URL = "http://localhost:4000/api"
+const API_URL = 'https://album-review-server-app.herokuapp.com/api';
+const API_BASE = 'https://album-review-server-app.herokuapp.com/api';
+
 const api = axios.create({withCredentials: true})
 
 export const signup = async (email, password, role) => {
