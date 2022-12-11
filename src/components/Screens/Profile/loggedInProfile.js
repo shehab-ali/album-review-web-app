@@ -27,7 +27,7 @@ const LoggedInProfileScreen = () => {
         const response = await axios.get(`${API_URL}/albums`)
         const response2 = await axios.get(`${API_URL}/reviews`)
         console.log(response.data)
-        setReviewedAlbums(response2.data.filter(r => r.postedBy.userID == profile._id));
+        setReviewedAlbums(response2.data.filter(r => r.postedBy.userID === profile._id));
         setPositiveAlbums(
             response.data.filter(m => m.likes > 0 && profile.likedAlbums.includes(m.imdbID)))
         setNegativeAlbums(

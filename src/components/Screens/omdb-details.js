@@ -50,14 +50,14 @@ const OmdbDetails = () => {
     }, [])
 
     const albums = useSelector((state) => state.albums);
-    let album = albums.find(mv => mv.imdbID == imdbID);
+    let album = albums.find(mv => mv.imdbID === imdbID);
 
     const handleLike = async () => {
         signin(info.email,info.password)
         setInfo(profile);
-        if (status == "LIKED") {
+        if (status === "LIKED") {
             return;
-        } else if (status == "DISLIKED") {
+        } else if (status === "DISLIKED") {
             let x = info.dislikedAlbums.indexOf(imdbID)
             info.dislikedAlbums.splice(x,1);
             info.likedAlbums.push(imdbID)
@@ -93,9 +93,9 @@ const OmdbDetails = () => {
     const handleDislike = async () => {
         signin(info.email,info.password)
         setInfo(profile);
-        if (status == "DISLIKED") {
+        if (status === "DISLIKED") {
             return;
-        } else if (status == "LIKED") {
+        } else if (status === "LIKED") {
             let x = info.likedAlbums.indexOf(imdbID)
             info.likedAlbums.splice(x,1);
             info.dislikedAlbums.push(imdbID)
@@ -148,7 +148,7 @@ const OmdbDetails = () => {
 
 
             <SecureContent>
-                {profile && albumDetails.imdbID && profile.role == 'REVIEWER' ? <PostReview
+                {profile && albumDetails.imdbID && profile.role === 'REVIEWER' ? <PostReview
                     idDetails={{"albumID": albumDetails.imdbID, "userID": profile._id}}/> : <></>}
             </SecureContent>
 

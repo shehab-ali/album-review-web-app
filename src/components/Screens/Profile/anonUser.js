@@ -12,7 +12,7 @@ const AnonUser = () => {
     const users = useSelector((state) => state.users);
     const dispatch = useDispatch();
 
-    const user = users.find(x => x._id == pID);
+    const user = users.find(x => x._id === pID);
 
     const [positiveAlbums, setPositiveAlbums] = useState([])
     const [negativeAlbums, setNegativeAlbums] = useState([])
@@ -21,7 +21,7 @@ const AnonUser = () => {
         const response = await axios.get(`${API_URL}/albums`)
         const response2 = await axios.get(`${API_URL}/users/${pID}`)
         const response3 = await axios.get(`${API_URL}/reviews`)
-        setReviewedAlbums(response3.data.filter(r => r.postedBy.userID == pID));
+        setReviewedAlbums(response3.data.filter(r => r.postedBy.userID === pID));
         const thisUser = response2.data
         setPositiveAlbums(
             response.data.filter(m => m.likes > 0 && thisUser.likedAlbums.includes(m.imdbID)))

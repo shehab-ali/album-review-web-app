@@ -24,7 +24,7 @@ export const findAllReviews = async (dispatch) => {
 
 export const findAllReviewsForAlbum = async (dispatch, albumID) => {
     let reviews = await service.findAllReviews();
-    reviews = reviews.filter(r => r.albumID == albumID);
+    reviews = reviews.filter(r => r.albumID === albumID);
     dispatch({
                  type: FIND_ALL_REVIEWS_FOR_ALBUM,
                  reviews

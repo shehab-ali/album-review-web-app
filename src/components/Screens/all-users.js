@@ -10,7 +10,7 @@ const EditUsersScreen = () => {
     const [users, setUsers] = useState([])
     const findAllUsers = async () => {
         const response = await axios.get(`${API_URL}/users`)
-        let usersMinusCurrent = response.data.filter(user => user.role && user.role != 'ADMIN');
+        let usersMinusCurrent = response.data.filter(user => user.role && user.role !== 'ADMIN');
         setUsers(usersMinusCurrent);
     }
     useEffect(() => {
@@ -20,7 +20,7 @@ const EditUsersScreen = () => {
     const handleDelete = async (userID) => {
         const response1 = await axios.get(`${API_URL}/reviews`)
         let reviews = response1.data
-        let reviewsToDelete = reviews.filter(r => r.postedBy.userID == userID);
+        let reviewsToDelete = reviews.filter(r => r.postedBy.userID === userID);
         reviewsToDelete.forEach(r => deleteReview(r))
 
         const response2 = await axios.get(`${API_URL}/users/${userID}`)
@@ -40,7 +40,7 @@ const EditUsersScreen = () => {
         await axios.delete(`${API_URL}/reviews/${r._id}`)
         const response2 = await axios.get(`${API_URL}/albums`)
         let albums = response2.data
-        let album = albums.find(m => m.imdbID == r.albumID)
+        let album = albums.find(m => m.imdbID === r.albumID)
         await axios.post(`${API_URL}/deleteReview`, album);
     }
 
@@ -60,7 +60,7 @@ const EditUsersScreen = () => {
                 <ul className="list-group wd-list-group-override">
 
                     {
-                        users.filter(u => u.role == 'USER').map(user =>
+                        users.filter(u => u.role === 'USER').map(user =>
                                                                     <li className="list-group-item">
                                                                         <Link
                                                                             className="text-decoration-none"
@@ -69,7 +69,7 @@ const EditUsersScreen = () => {
                                                                             @{user.handle}
                                                                         </Link>
                                                                         {profile && profile.role
-                                                                         == 'ADMIN' ?
+                                                                         === 'ADMIN' ?
                                                                          <button
                                                                              onClick={() => handleDelete(
                                                                                  user._id)}
@@ -86,7 +86,7 @@ const EditUsersScreen = () => {
 
                 <ul className="list-group wd-list-group-override">
                     {
-                        users.filter(u => u.role == 'REVIEWER').map(user =>
+                        users.filter(u => u.role === 'REVIEWER').map(user =>
                                                                         <li className="list-group-item ">
                                                                             <Link
                                                                                 className="text-decoration-none"
@@ -95,7 +95,7 @@ const EditUsersScreen = () => {
                                                                                 @{user.handle}
                                                                             </Link>
                                                                             {profile && profile.role
-                                                                             == 'ADMIN' ?
+                                                                             === 'ADMIN' ?
                                                                              <button
                                                                                  onClick={() => handleDelete(
                                                                                      user._id)}
